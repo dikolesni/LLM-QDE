@@ -3,77 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>[Your Poster Title]</title>
+  <title>Simulating Expert Behavior with LLMs for Question Difficulty Estimation</title>
   <style>
     body {
       font-family: "Helvetica Neue", Arial, sans-serif;
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       background: #fafafa;
       color: #222;
-      line-height: 1.5;
+      line-height: 1.6;
     }
     header {
       text-align: center;
       padding: 2rem;
       background: #ffd54f;
     }
-    h1 { font-size: 2.5rem; margin-bottom: 0; }
-    h2 { margin-top: 2rem; color: #003366; }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #003366;
+    }
     section {
       max-width: 1000px;
       margin: auto;
       padding: 2rem;
       background: white;
     }
-    figure { text-align: center; margin: 2rem 0; }
-    img { max-width: 100%; height: auto; border-radius: 8px; }
+    p {
+      margin-bottom: 1.2rem;
+    }
+    ul, ol {
+      margin: 1rem 0 1.2rem 2rem;
+    }
+    figure {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
     footer {
       text-align: center;
       padding: 1rem;
       font-size: 0.9rem;
       color: #666;
     }
+    a {
+      color: #003366;
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #ff6f00;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>Simulating Expert Behavior with LLMs For Question Difficulty Estimation: Angoff-like Versus Pairwise Procedures. </h1>
-    <p><b>Author(s):</b> Diana Kolesnikova · <b>Affiliation:</b> Tilburg University</p>
-    </b> Kirill Fedyanin · <b>Affiliation:</b> srb.tech </p>
-     </b> Dr. Matthieu Brinkhuis · <b>Affiliation:</b> Utrecht University </p>
-     </b> Dr. Maria Bolsinova · <b>Affiliation:</b> Tilburg University </p>
+    <h1>Simulating Expert Behavior with LLMs for Question Difficulty Estimation: Angoff-like Versus Pairwise Procedures</h1>
+    <p><strong>Author(s):</strong> Diana Kolesnikova · <strong>Affiliation:</strong> Tilburg University</p>
+    <p><strong>Author(s):</strong> Kirill Fedyanin · <strong>Affiliation:</strong> srb.tech</p>
+    <p><strong>Author(s):</strong> Dr. Matthieu Brinkhuis · <strong>Affiliation:</strong> Utrecht University</p>
+    <p><strong>Author(s):</strong> Dr. Maria Bolsinova · <strong>Affiliation:</strong> Tilburg University</p>
   </header>
 
   <section>
     <h2>Problem</h2>
-    <p>Reliable estimates of task difficulty are essential for building valid assessments (Wainer & Mislevy, 2000) and efficient learning systems (Wauters, Desmet, & Van Den Noortgate, 2010). Accurate knowledge of task difficulty enables educators and assessment developers to mitigate the cold-start problem inherent to adaptive systems (van der Velde et al., 2021; Klinkenberg et al., 2011), construct parallel test forms (Van der Linden & Adema, 1998), and design learning trajectories that minimize time-to-mastery while maximizing learner engagement (Kulik & Fletcher, 2016; VanLehn, 2011).
-Difficulty is typically conceptualized as a latent characteristic of an item, influencing the probability of a correct response (e.g., Hambleton et al., 1991). Practitioners usually focus on difficulty estimates derived empirically from an actual population of respondents or learners. In these cases, difficulty is commonly quantified through Classical Test Theory (CTT) methods, such as proportions of correct answers (p-values; Crocker & Algina, 1986) or through Item Response Theory (IRT) models (Lord & Novick, 1968), for instance, via difficulty parameters derived from the Rasch model (Rasch, 1960). These empirically derived values are frequently treated as the ground truth for subsequent analysis (AlKhuzaey et al., 2024; Benedetto et al., 2020, March). However, in practical contexts, response data for new items are often unavailable, requiring additional steps for difficulty estimation.
-Traditional strategies for estimating the difficulty of newly developed items before exposure to the target main audience frequently rely on pre-testing with a smaller sample of target respondents. While this approach provides direct evidence, it incurs substantial time and financial costs (Jalili, Hejri, & Norcini, 2011). More importantly, it creates additional risks of item exposure and content leaking, which is undesirable for high-stakes testing (Ozaki & Toyoda, 2006). A common alternative is expert judgment, during which domain experts (i) label items by difficulty level (usually 2-5 levels) (AlKhuzaey et al., 2024), (ii) predict the proportion of students expected to answer each question correctly (Angoff-like procedures that evolved from Angoff standard setting procedure) (Wauters, Desmet, & Van Den Noortgate, 2012; Lorge & Diamond, 1954), (iii) compare difficulty of items pairwise (Thurstone, 1927; Ozaki & Toyoda, 2006; Ozaki & Toyoda, 2009; Benton, 2020), or (iv) rank item sets (Lorge and Kruglov, 1953; Curcin et al. (2009); Attali et al., 2014; ). Despite their usefulness, these methods generally require extensive training (Livingston, & Zieky, 1982) and often exhibit substantial variability in accuracy (r = [0; 0.9]; Attali et al., 2014; Hambleton et al., 1998).
-Recent years have seen a surge in automatic methods to estimate difficulty, in particular, in machine-learning (ML) approaches (AlKhuzaey et al., 2024). Supervised ML models can be highly accurate but require labelled data sets of responses to similar items (Benedetto, Cappelli, Turrin, & Cremonesi, 2020). Rule-based NLP methods avoid this data burden but remain constrained by domain-specific linguistic heuristics (?). More recently, pre-trained large language models (LLMs) have been explored, typically by simulating student behaviour; however, some of these methods suffer from the unrealistic distribution of simulated students abilities (Liu, Bhandari & Pardos, 2025), while other require the use of large number of LLMs. For instance Park et al. (2024) use 65 LLMs in their work to simulate various students; partially these methods still depend on question-solving records.</p>
+    <p>Reliable estimates of task difficulty are essential for building valid assessments (Wainer & Mislevy, 2000) and efficient learning systems (Wauters, Desmet, & Van Den Noortgate, 2010). Accurate knowledge of task difficulty enables educators and assessment developers to mitigate the cold-start problem inherent to adaptive systems (van der Velde et al., 2021; Klinkenberg et al., 2011), construct parallel test forms (Van der Linden & Adema, 1998), and design learning trajectories that minimize time-to-mastery while maximizing learner engagement (Kulik & Fletcher, 2016; VanLehn, 2011).</p>
+
+    <p>Difficulty is typically conceptualized as a latent characteristic of an item, influencing the probability of a correct response (e.g., Hambleton et al., 1991). Practitioners usually focus on difficulty estimates derived empirically from an actual population of respondents or learners. In these cases, difficulty is commonly quantified through Classical Test Theory (CTT) methods, such as proportions of correct answers (p-values; Crocker & Algina, 1986) or through Item Response Theory (IRT) models (Lord & Novick, 1968), for instance via difficulty parameters derived from the Rasch model (Rasch, 1960). These empirically derived values are frequently treated as the ground truth for subsequent analysis (AlKhuzaey et al., 2024; Benedetto et al., 2020).</p>
+
+    <p>However, in practical contexts, response data for new items are often unavailable, requiring additional steps for difficulty estimation. Traditional strategies for estimating the difficulty of newly developed items before exposure to the target main audience frequently rely on pre-testing with a smaller sample of target respondents. While this approach provides direct evidence, it incurs substantial time and financial costs (Jalili, Hejri, & Norcini, 2011). More importantly, it creates additional risks of item exposure and content leaking, which is undesirable for high-stakes testing (Ozaki & Toyoda, 2006).</p>
 
     <h2>Idea</h2>
-    <p>To address these limitations, the present study evaluates the capacity of off-the-shelf LLMs to simulate expert difficulty judgments without extensive datasets. Two standard expert-rating procedures—an Angoff-like method and pairwise comparison—are implemented under two experimental factors: (i) zero-shot versus few-shot prompting, (ii) hard-desision versus soft-probability outputs.
-</p>
+    <p>To address these limitations, the present study evaluates the capacity of off-the-shelf LLMs to simulate expert difficulty judgments without extensive datasets. Two standard expert-rating procedures—an Angoff-like method and pairwise comparison—are implemented under two experimental factors:</p>
+
+    <ul>
+      <li>zero-shot versus few-shot prompting;</li>
+      <li>hard-decision versus soft-probability outputs.</li>
+    </ul>
 
     <h2>Procedure</h2>
-    <p>The evaluation encompasses 3 state-of-the-art LLMs, including both proprietary and open-source models, applied across the item bank of MathGarden (approximately 2 000 Dutch-language mathematics items for primary school), 6 domains with 60 items in each are sampled. Predicted item difficulties are compared with empirically derived difficulty estimates (IRT approach) using Spearman rank correlation.
-</p>
-
-   <h2>Detailed Results</h2>
-<p>
-  Here you can find tables with detailed results:
-  <a href="https://docs.google.com/spreadsheets/d/1tovrij73_Q1rxdlKMdcbxJbEMoodTUmuZb3nNkOMnSE/edit?usp=sharing" target="_blank">
-    Open Google Sheets
-  </a>
-</p>
-    
-
-    <h2>Challenges</h2>
-    <p>The topic of difficulty estimation is vast. Other ideas that should be explored in future include two big directions - increasing reliability of estimation and improving interpretability of it. These two improvements could be potentially achieved through the following ideas: sending prompts within one context (memory); checking the work of reasoning models; using ranking procedures, in particular ranking triplets; exploring task features that imply difficulty to LLMs; comparing LLMs thinking patterns and human experts cognitive processes; </p>
-  </section>
-
-  <footer>
-    <p>© 2025, Kolesnikova Diana, dianakolesnikova@gmail.com  Presented at AEA Europe.</p>
-  </footer>
-</body>
-</html>
+    <p>The evaluation encompasses three state-of-the-art LLMs, including both proprietary and open-source models, applied across the item bank of MathGarden (approximat
